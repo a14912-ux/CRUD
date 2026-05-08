@@ -49,40 +49,23 @@ public class LigacaoBD {
 
     public static void main(String[] args) {
 
-
         System.out.println("A testar ligação à base de dados...");
-
 
         Connection con = ligar();
 
-
         if (con != null) {
-
             System.out.println("Ligação realizada com sucesso!");
 
-
             try {
-
                 con.close();
-
                 System.out.println("Ligação fechada.");
 
             } catch (Exception e) {
-
                 e.printStackTrace();
-
             }
 
-
         } else {
-
-
             System.out.println("Falha na ligação!");
-
-
         }
-
-
     }
-
 }
