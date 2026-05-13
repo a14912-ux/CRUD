@@ -379,8 +379,7 @@ public class App {
                         <h2>Novo Cliente</h2>
 
                         <a href='/clientes'>← Voltar à lista</a><br><br>
-
-                        <form method='POST' action='/guardar'>
+<form method='POST' action='/guardar'>
                             Nif:
                             <input name='nif' required>
 
@@ -407,6 +406,7 @@ public class App {
             exchange.getResponseBody().write(html.toString().getBytes());
             exchange.close();
         });
+        
 
         // GUARDAR NOVO PRODUTO
         server.createContext("/guardar-produto", exchange -> {
