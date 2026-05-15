@@ -153,6 +153,7 @@ public class App {
 
                         <h2>Lista de Produtos</h2>
                         <a href='/novo-produto'>+ Novo Produto</a><br><br>
+                        <a href='/'>Voltar ao Menu Inicial</a><br><br>
 
                         <table>
 
@@ -190,8 +191,8 @@ public class App {
                     html.append("<td>").append(produto).append("</td>");
                     html.append("<td>").append(preco).append("</td>");
                     html.append("<td>");
-                    html.append("<a href='/editar-produto?id=").append(id).append("'>Editar</a>");
-                    html.append("<a href='/apagar-produto?id=").append(id).append("' onclick=\"return confirm('Eliminar produto?')\">Apagar</a>");
+                    html.append("<a href='/editar-produto?id=").append(id).append("'>Editar-Produto</a>");
+                    html.append("<a href='/apagar-produto?id=").append(id).append("' onclick=\"return confirm('Eliminar produto?')\">Apagar-Produto</a>");
                     html.append("</td>");
                     html.append("</tr>");
                 }
@@ -237,6 +238,7 @@ public class App {
 
                         <h2>Lista de Clientes</h2>
                         <a href='/novo'>+ Novo Cliente</a><br><br>
+                        <a href='/'>Voltar ao Menu Inicial</a><br><br>
 
                         <table>
 
@@ -379,7 +381,8 @@ public class App {
                         <h2>Novo Cliente</h2>
 
                         <a href='/clientes'>← Voltar à lista</a><br><br>
-<form method='POST' action='/guardar'>
+
+                        <form method='POST' action='/guardar'>
                             Nif:
                             <input name='nif' required>
 
@@ -406,7 +409,6 @@ public class App {
             exchange.getResponseBody().write(html.toString().getBytes());
             exchange.close();
         });
-        
 
         // GUARDAR NOVO PRODUTO
         server.createContext("/guardar-produto", exchange -> {
@@ -435,15 +437,15 @@ public class App {
                         String value = java.net.URLDecoder.decode(kv[1], "UTF-8");
 
                         switch (key) {
-                            case "Referencia":
+                            case "referencia":
                                 referencia = value;
                                 break;
 
-                            case "Produto":
+                            case "produto":
                                 produto = value;
                                 break;
 
-                            case "Preco":
+                            case "preco":
                                 preco = Double.parseDouble(value);
                                 break;
                         }
@@ -886,7 +888,7 @@ public class App {
 
                 String[] params = body.split("&");
                 String idStr = "";
-                String refProduto = "";
+                String referencia = "";
                 String produto = "";
                 double preco = 0.0;
 
@@ -903,8 +905,8 @@ public class App {
                                 idStr = value;
                                 break;
 
-                            case "refProduto":
-                                refProduto = value;
+                            case "referencia":
+                                referencia = value;
                                 break;
 
                             case "produto":
@@ -927,10 +929,10 @@ public class App {
                     throw new Exception("Ligação à BD falhou!");
                 }
 
-                String sql = "UPDATE produtos SET refProduto=?, produto=?, preco=? WHERE id=?";
+                String sql = "UPDATE produtos SET referencia=?, produto=?, preco=? WHERE id=?";
                 PreparedStatement ps = con.prepareStatement(sql);
 
-                ps.setString(1, refProduto);
+                ps.setString(1, referencia);
                 ps.setString(2, produto);
                 ps.setDouble(3, preco);
                 ps.setInt(4, id);
